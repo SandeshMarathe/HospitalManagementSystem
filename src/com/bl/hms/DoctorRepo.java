@@ -1,53 +1,68 @@
 package com.bl.hms;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DoctorRepo {
+    public static DoctorRepo instance;
+    private Set<Doctor> doctorList = new HashSet();
 
-    private static DoctorRepo instance;
-    private List <Doctor> doctorList = new ArrayList();
-
-    private DoctorRepo() {
-
+    DoctorRepo() {
     }
 
-    public static DoctorRepo getInstance(){
+    public static DoctorRepo getInstance() {
         if (instance == null) {
             instance = new DoctorRepo();
         }
         return instance;
     }
 
-    void add(Doctor doctor) {
+    void addDoctor(Doctor doctor) {
         doctorList.add(doctor);
     }
 
-    List getDoctorList() {
+    Set<Doctor> getDoctorList() {
         return doctorList;
     }
 
-    void removeMethod(Doctor doctor){
-        doctorList.remove(doctor);
-    }
+    public boolean isDoctorAvailable(String doctorID) {//10
+//        for (int i = 0; i < doctorList.size(); i++) {
+//            if (doctorList.get(i).id.equals(doctorID)) {
+//                return true;
+//            }
+//        }
+//        return false;
 
-    public Doctor get(String id){
-        for (int i = 0; i < doctorList.size(); i++){
-            if (doctorList.get(i).id.equals(id)){
-                return doctorList.get(i);
-
-            }
-        }
-        return null;
-    }
-
-    public boolean isDoctorAvailable(String id) {
-        for (Doctor doctor : doctorList){
-
-            if (doctor.id.equals(id)) {
+        for (Doctor doctor : doctorList) {
+            if (doctor.id.equals(doctorID)) {
                 return true;
             }
         }
         return false;
     }
+
+    public Doctor getDoctor(String doctorID) {
+//        for (int i = 0; i < doctorList.size(); i++) {
+//            if (doctorList.get(i).id.equals(id)) {
+//                return doctorList.get(i);
+//            }
+//        }
+//        return null;
+
+        for (Doctor doctor : doctorList) {
+            if (doctor.id.equals(doctorID)) {
+                return doctor;
+            }
+        }
+        return null;
+    }
+
+    public void remove(Doctor doctor) {
+        doctorList.remove(doctor);
+    }
 }
+
+
+
